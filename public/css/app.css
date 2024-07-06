@@ -311,3 +311,15 @@ section.login a:hover {
   border-radius: 50px !important;
   padding-left: 8px !important;
 }
+
+a.link {
+  color: #FE5F1E;
+}
+
+#success-alert {
+  transition: opacity 0.5s ease-in-out; /* Adjust the duration as needed */
+}
+
+.alert-hidden {
+  opacity: 0;
+}

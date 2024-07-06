@@ -69,3 +69,14 @@ section.login{
     border-radius: 50px!important;
     padding-left: 8px!important;
 }
+
+a.link{
+    color : $primary;
+}
+#success-alert {
+    transition: opacity 0.5s ease-in-out; /* Adjust the duration as needed */
+}
+
+.alert-hidden {
+    opacity: 0;
+}
