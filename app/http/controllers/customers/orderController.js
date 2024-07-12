@@ -4,6 +4,7 @@ function orderController(){
 
     return{
         async store(req,res){
+
             // Validate request
             const{phone,address} =req.body
 
@@ -24,14 +25,15 @@ function orderController(){
             try {
                 const result = await order.save();
                 const placedOrder = await Order.populate(result, { path: 'customerId' });
-                req.flash('success', 'Order placed successfully');
+                // req.flash('success', 'Order placed successfully');
                 delete req.session.cart;
 
                 // Emit event
                 const eventEmitter = req.app.get('eventEmitter');
                 eventEmitter.emit('orderPlaced', placedOrder);
+                return res.json({message:'Order placed successfully'})
 
-                return res.redirect('/customer/orders');
+                // return res.redirect('/customer/orders');
             } catch (err) {
                 console.error(err);
                 req.flash('error', 'Something went wrong');
