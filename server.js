@@ -13,8 +13,8 @@ const passport= require("passport")
 const Emitter = require('events')
 
 // Database connection
-const url = 'mongodb://localhost/pizza';
-mongoose.connect(url, {});
+
+mongoose.connect(process.env.MONGO_CONNECTION_URL, {});
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log('Database connected...');
@@ -27,7 +27,7 @@ connection.on('error', (err) => {
 
 // Session store 
 const mongoStore = MongoStore.create({
-    mongoUrl: url,
+    mongoUrl: process.env.MONGO_CONNECTION_URL,
     collectionName: 'sessions'
 });
 
@@ -76,6 +76,10 @@ app.set("views", path.join(__dirname, '/resources/views'))
 app.set("view engine","ejs")
 
 require("./routes/web")(app)
+app.use((req, res) => {
+    res.status(404).render('errors/404')
+})
+
 
 const server= app.listen(PORT,()=>{
     console.log(`Listening on port ${PORT}`)
